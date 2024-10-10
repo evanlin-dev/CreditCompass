@@ -1,0 +1,65 @@
+.container {
+  background-color: white;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+.left-container {
+  background-color: white;
+  border-right: 3px solid #F8F8F8;
+  height: 100vh;
+  width:20vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.left-header {
+  border: 2px solid red;
+  width: 15em;
+  height: 5em;
+  margin-bottom: 5em;
+  margin-top: 2em;
+}
+
+.nav-container {
+  height: 20vh;
+  width: 15em;
+  border: 2px solid red;
+}
+
+.right-container {
+  background-color: white;
+  height: 100vh;
+  width:80vw;
+}
+
+.right-header-container {
+  border: 2px solid red;
+  width: 15em;
+  height: 5em;
+  margin-bottom: 5em;
+  margin-top: 2em;
+  margin-left: 5em;
+}
+
+.right-body-container {
+  border: 2px solid red;
+  width: 73em;
+  height: 43em;
+  margin-bottom: 5em;
+  margin-top: 2em;
+  margin-left: 5em;
+}
+
+.credit-card-container {
+  border: 2px solid red;
+  width: 30em;
+  height: 16em;
+  margin-top: 2em;
+  margin-left: 2em;
+}
