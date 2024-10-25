@@ -1,4 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, Container,
   Grid, Card, CardContent, Avatar, Box, CssBaseline,
   ThemeProvider, createTheme
@@ -35,10 +37,10 @@ export default function LandingPage() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               CreditCompass
             </Typography>
-            <Button color="primary" variant="contained" sx={{ mr: 2 }}>
+            <Button component={Link} to="/sign-up" color="primary" variant="contained" sx={{ mr: 2 }}>
               Sign Up
             </Button>
-            <Button color="secondary" variant="outlined">
+            <Button component={Link} to="/login" color="secondary" variant="outlined">
               Log In
             </Button>
           </Toolbar>
