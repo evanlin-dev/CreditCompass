@@ -57,7 +57,8 @@ export default function LandingPage() {
               <Typography variant="h5" color="text.secondary" paragraph>
                 Maximize your points, optimize your usage, and unlock the full potential of your credit cards with CreditCompass.
               </Typography>
-              <Button variant="contained" size="large" sx={{ mt: 2 }}>
+              {/* Updated "Get Started" Button */}
+              <Button component={Link} to="/dashboard" variant="contained" size="large" sx={{ mt: 2 }}>
                 Get Started
               </Button>
             </Grid>
@@ -180,7 +181,7 @@ export default function LandingPage() {
           <Typography variant="subtitle1" color="text.secondary" paragraph>
             Join CreditCompass today and start your journey to smarter credit card usage.
           </Typography>
-          <Button variant="contained" size="large">
+          <Button component={Link} to="/dashboard" variant="contained" size="large">
             Sign Up Now
           </Button>
         </Container>

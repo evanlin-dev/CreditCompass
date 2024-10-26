@@ -1,65 +1,265 @@
 .container {
-  background-color: white;
   display: flex;
   width: 100vw;
   height: 100vh;
-  top: 0;
-  left: 0;
-  position: fixed;
+  background-color: #121212;
 }
 
 .left-container {
-  background-color: white;
-  border-right: 3px solid #F8F8F8;
-  height: 100vh;
-  width:20vw;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  background-color: #1e1e1e;
+  border-right: 1px solid #333;
+  width: 20vw;
+  padding: 2em;
 }
 
 .left-header {
-  border: 2px solid red;
-  width: 15em;
-  height: 5em;
-  margin-bottom: 5em;
-  margin-top: 2em;
+  text-align: center;
+  margin-bottom: 4em;
 }
 
-.nav-container {
-  height: 20vh;
-  width: 15em;
-  border: 2px solid red;
+.left-header .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #bb86fc;
+}
+
+.nav-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.nav-container li {
+  font-size: 1.2em;
+  padding: 1em 0;
+  text-align: center;
+  cursor: pointer;
+  color: #bbbbbb;
+}
+
+.nav-container li:hover {
+  background-color: #333;
+  color: #bb86fc;
 }
 
 .right-container {
-  background-color: white;
-  height: 100vh;
-  width:80vw;
+  background-color: #121212;
+  width: 80vw;
+  padding: 2em;
+  overflow-y: auto;
 }
 
-.right-header-container {
-  border: 2px solid red;
-  width: 15em;
-  height: 5em;
-  margin-bottom: 5em;
-  margin-top: 2em;
-  margin-left: 5em;
+.right-header-container h1 {
+  font-size: 2em;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.right-header-container p {
+  font-size: 1.2em;
+  color: #bbbbbb;
+  margin-top: 0.5em;
 }
 
 .right-body-container {
-  border: 2px solid red;
-  width: 73em;
-  height: 43em;
-  margin-bottom: 5em;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   margin-top: 2em;
-  margin-left: 5em;
 }
 
-.credit-card-container {
-  border: 2px solid red;
-  width: 30em;
-  height: 16em;
-  margin-top: 2em;
-  margin-left: 2em;
+.card-and-stats-wrapper {
+  background-color: #1e1e1e;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  padding: 2em;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+}
+
+.credit-card-section {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  align-items: center;
+  position: relative;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.single-credit-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  height: 14em;
+}
+
+.left-arrow,
+.right-arrow {
+  z-index: 2;
+  background-color: rgba(18, 18, 18, 0.5);
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.left-arrow {
+}
+
+.right-arrow {
+}
+
+.menu-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.menu-button {}
+
+.add-card-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.card-details {
+  color: white;
+}
+
+.card-holder {
+  margin-top: 0.5em;
+  font-size: 1em;
+}
+
+.points-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.5em;
+}
+
+.progress-container {
+  margin-top: 1.5em;
+  text-align: center;
+  width: 100%;
+}
+
+.progress-container p {
+  font-size: 1.2em;
+  color: #bbbbbb;
+  margin-bottom: 0.5em;
+}
+
+.progress-bar {
+  background-color: #333;
+  border-radius: 10px;
+  width: 100%;
+  height: 1.2em;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background-color: #03dac6;
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease-in-out;
+}
+
+.stats {
+  padding: 1em;
+  text-align: right;
+  width: 35%;
+}
+
+.stats h3 {
+  font-size: 3em;
+  color: #bb86fc;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.stats p {
+  font-size: 1.2em;
+  color: #bbbbbb;
+  text-align: center;
+}
+
+.income,
+.outcome {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1em;
+  margin-top: 1.5em;
+}
+
+.income span {
+  color: #5cb85c;
+}
+
+.outcome span {
+  color: #d9534f;
+}
+
+.cards-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.cards-scroll::-webkit-scrollbar-track {
+  background: #2e64e2;
+  border-radius: 4px;
+}
+
+.cards-scroll::-webkit-scrollbar-thumb {
+  background-color: #03dac6;
+  border-radius: 4px;
+}
+
+.custom-tooltip {
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+.custom-tooltip .MuiTypography-body2 {
+  color: #000000;
+}
+
+
+.MuiModal-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-color__sketch-picker {
+  width: 100% !important;
+}
+
+@media (max-width: 600px) {
+  .credit-card-container {
+    width: 16em;
+    height: 10em;
+  }
+
+  .left-arrow {
+    left: -30px;
+  }
+
+  .right-arrow {
+    right: -30px;
+  }
+
+  .react-color__sketch-picker {
+    width: 100% !important;
+  }
 }
