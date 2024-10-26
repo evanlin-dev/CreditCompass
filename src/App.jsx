@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Box, Typography, ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import Dashboard from './pages/Dashboard';
 import Cards from './pages/Cards';
 import Flowchart from './pages/Flowchart';
 import LandingPage from './pages/LandingPage';
-import { Box, Typography, ThemeProvider, createTheme, CssBaseline } from '@mui/material';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 
 const darkTheme = createTheme({
   palette: {
@@ -37,8 +39,10 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cards" element={<Cards />} />
           <Route path="/flowchart" element={<Flowchart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="*" element={
-            <Box sx={{ padding: '2em', color: '#ffffff' }}>
+            <Box sx={{ padding: '2em', color: '#ffffff', textAlign: 'center' }}>
               <Typography variant="h4" gutterBottom>
                 404 - Page Not Found
               </Typography>
@@ -53,4 +57,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;;
