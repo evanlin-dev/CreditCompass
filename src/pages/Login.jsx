@@ -1,10 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography, Link, Container,
   CssBaseline, ThemeProvider, createTheme, Paper, InputAdornment, IconButton,
 } from '@mui/material';
 import { LockOutlined, EmailOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebaseConfig";
 
 const darkTheme = createTheme({
   palette: {
@@ -62,10 +65,17 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Login attempt with:', { email, password });
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("User logged in successfully");
+      navigate('/dashboard');
+    } catch (error) {
+      console.error("Error logging in:", error.message);
+    }
   };
 
   const handleClickShowPassword = () => {
