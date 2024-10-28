@@ -8,6 +8,16 @@ import Flowchart from './pages/Flowchart';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import PrivateRoute from "./PrivateRoute";
+
+<Routes>
+  <Route path="/" element={<LandingPage />} />
+  <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+  <Route path="/cards" element={<PrivateRoute><Cards /></PrivateRoute>} />
+  <Route path="/flowchart" element={<PrivateRoute><Flowchart /></PrivateRoute>} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/sign-up" element={<SignUp />} />
+</Routes>
 
 const darkTheme = createTheme({
   palette: {
