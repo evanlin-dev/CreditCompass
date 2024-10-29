@@ -9,6 +9,15 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 
+<Routes>
+  <Route path="/" element={<LandingPage />} />
+  <Route path="/dashboard" element={<Dashboard />} />
+  <Route path="/cards" element={<Cards />} />
+  <Route path="/flowchart" element={<Flowchart />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/sign-up" element={<SignUp />} />
+</Routes>
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -57,4 +66,4 @@ function App() {
   );
 }
 
-export default App;;
+export default App;

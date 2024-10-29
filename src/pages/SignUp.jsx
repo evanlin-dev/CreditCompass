@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography, Link, Container,
   CssBaseline, ThemeProvider, createTheme, Paper, InputAdornment, IconButton,
 } from '@mui/material';
 import { LockOutlined, EmailOutlined, PersonAdd, Visibility, VisibilityOff } from '@mui/icons-material';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 const darkTheme = createTheme({
   palette: {
@@ -63,15 +66,21 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       console.error("Passwords do not match!");
       return;
     }
-    console.log('Sign Up attempt with:', { email, password });
-    // Add your signup logic here (e.g., API call)
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log("User signed up successfully");
+      navigate('/dashboard')
+    } catch (error) {
+      console.error("Error signing up:", error.message);
+    }
   };
 
   const handleClickShowPassword = () => {

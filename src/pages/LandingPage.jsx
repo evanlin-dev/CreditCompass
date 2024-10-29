@@ -1,14 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, Container,
-  Grid, Card, CardContent, Avatar, Box, CssBaseline,
-  ThemeProvider, createTheme
+import {
+  AppBar, Toolbar, Typography, Button, Container, Grid, Card, CardContent,
+  Avatar, Box, CssBaseline, ThemeProvider, createTheme
 } from '@mui/material';
-
-import { CreditCard, TrendingUp, Redeem, Search,
-   CompareArrows, EmojiEvents,
+import {
+  CreditCard, TrendingUp, Redeem, Search, CompareArrows, EmojiEvents,
 } from '@mui/icons-material';
+import { getAuth, onAuthStateChanged } from 'firebase/auth'; // Import Firebase auth listener
+import { auth } from '../firebase'; // Import your Firebase auth instance
 
 const darkTheme = createTheme({
   palette: {
@@ -27,6 +28,17 @@ const darkTheme = createTheme({
 });
 
 export default function LandingPage() {
+  var [isLoggedIn] = useState(false);
+
+  const auth = getAuth();
+  var user = auth.currentUser;
+
+  if (user === null) {
+    isLoggedIn = false;
+  } else {
+    isLoggedIn = true;
+  }
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -37,15 +49,20 @@ export default function LandingPage() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               CreditCompass
             </Typography>
-            <Button component={Link} to="/sign-up" color="primary" variant="contained" sx={{ mr: 2 }}>
-              Sign Up
+            <Button
+              component={Link}
+              to={isLoggedIn ? "/dashboard" : "/sign-up"} // Conditionally render link
+              color="primary"
+              variant="contained"
+              sx={{ mr: 2 }}
+            >
+              {isLoggedIn ? "Go to Dashboard" : "Sign Up"}
             </Button>
             <Button component={Link} to="/login" color="secondary" variant="outlined">
               Log In
             </Button>
           </Toolbar>
         </AppBar>
-
 
         {/* Hero Section */}
         <Container maxWidth="lg" sx={{ mt: 8, mb: 8 }}>
@@ -57,9 +74,14 @@ export default function LandingPage() {
               <Typography variant="h5" color="text.secondary" paragraph>
                 Maximize your points, optimize your usage, and unlock the full potential of your credit cards with CreditCompass.
               </Typography>
-              {/* Updated "Get Started" Button */}
-              <Button component={Link} to="/dashboard" variant="contained" size="large" sx={{ mt: 2 }}>
-                Get Started
+              <Button
+                component={Link}
+                to={isLoggedIn ? "/dashboard" : "/sign-up"}
+                variant="contained"
+                size="large"
+                sx={{ mt: 2 }}
+              >
+                {isLoggedIn ? "Go to Dashboard" : "Get Started"}
               </Button>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -181,8 +203,13 @@ export default function LandingPage() {
           <Typography variant="subtitle1" color="text.secondary" paragraph>
             Join CreditCompass today and start your journey to smarter credit card usage.
           </Typography>
-          <Button component={Link} to="/dashboard" variant="contained" size="large">
-            Sign Up Now
+          <Button
+            component={Link}
+            to={isLoggedIn ? "/dashboard" : "/sign-up"}
+            variant="contained"
+            size="large"
+          >
+            {isLoggedIn ? "Go to Dashboard" : "Sign Up Now"}
           </Button>
         </Container>
 
@@ -190,7 +217,7 @@ export default function LandingPage() {
         <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>
           <Container maxWidth="lg">
             <Typography variant="body2" color="text.secondary" align="center">
-              © {new Date().getFullYear()} CreditCompass. All rights reserved.
+              Â© {new Date().getFullYear()} CreditCompass. All rights reserved.
             </Typography>
           </Container>
         </Box>
