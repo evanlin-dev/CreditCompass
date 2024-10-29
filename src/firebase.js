@@ -9,15 +9,13 @@ const messagingSenderId = import.meta.env.VITE_MESSAGING_SENDER_ID;
 const appId = import.meta.env.VITE_APP_ID;
 
 const firebaseConfig = {
-    apiKey: apiKey,
-    authDomain: authDomain,
-    projectId: projectId,
-    storageBucket: storageBucket,
-    messagingSenderId: messagingSenderId,
-    appId: appId,
-  };
-
-console.log(firebaseConfig);
+  apiKey: apiKey,
+  authDomain: authDomain,
+  projectId: projectId,
+  storageBucket: storageBucket,
+  messagingSenderId: messagingSenderId,
+  appId: appId,
+};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
