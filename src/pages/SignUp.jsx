@@ -6,7 +6,7 @@ import { Box, Button, TextField, Typography, Link, Container,
 } from '@mui/material';
 import { LockOutlined, EmailOutlined, PersonAdd, Visibility, VisibilityOff } from '@mui/icons-material';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { auth } from "../firebase";
 
 const darkTheme = createTheme({
   palette: {
