@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, TextField, Typography, Link, Container,
+import {
+  Box, Button, TextField, Typography, Link, Container,
   CssBaseline, ThemeProvider, createTheme, Paper, InputAdornment, IconButton,
 } from '@mui/material';
 import { LockOutlined, EmailOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
@@ -96,10 +97,10 @@ export default function Login() {
         }}
       >
         <Container component="main" maxWidth="xs">
-          <Paper 
-            elevation={3} 
-            sx={{ 
-              p: 4, 
+          <Paper
+            elevation={3}
+            sx={{
+              p: 4,
               backgroundColor: 'background.paper',
               borderRadius: 4,
               boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
