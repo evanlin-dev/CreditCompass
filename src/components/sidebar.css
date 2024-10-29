@@ -1,0 +1,38 @@
+.left-container {
+    background-color: #1e1e1e;
+    border-right: 1px solid #333;
+    width: 20vw;
+    padding: 2em;
+}
+
+.left-header {
+    text-align: center;
+    margin-bottom: 4em;
+}
+
+.left-header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #bb86fc;
+}
+
+.nav-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-container .MuiListItemButton-root {
+    font-size: 1.2em;
+    padding: 1em 0;
+    text-align: center;
+    color: #bbbbbb;
+}
+
+.nav-container .MuiListItemButton-root:hover {
+    background-color: #333;
+    color: #bb86fc;
+}
+
+.nav-container .MuiListItem-root:hover {
+    background-color: transparent;
+}

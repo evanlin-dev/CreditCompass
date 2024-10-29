@@ -5,42 +5,6 @@
   background-color: #121212;
 }
 
-.left-container {
-  background-color: #1e1e1e;
-  border-right: 1px solid #333;
-  width: 20vw;
-  padding: 2em;
-}
-
-.left-header {
-  text-align: center;
-  margin-bottom: 4em;
-}
-
-.left-header .logo {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #bb86fc;
-}
-
-.nav-container ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.nav-container li {
-  font-size: 1.2em;
-  padding: 1em 0;
-  text-align: center;
-  cursor: pointer;
-  color: #bbbbbb;
-}
-
-.nav-container li:hover {
-  background-color: #333;
-  color: #bb86fc;
-}
-
 .right-container {
   background-color: #121212;
   width: 80vw;
@@ -48,7 +12,7 @@
   overflow-y: auto;
 }
 
-.right-header-container h1 {
+.right-header-container h4 {
   font-size: 2em;
   font-weight: bold;
   color: #ffffff;
@@ -106,22 +70,14 @@ li {
   margin-top: 1rem;
 }
 
-.MuiList-root {
-  padding-left: 1rem;
-}
-
-.MuiListItem-root {
-  padding-left: 0;
-}
-
 a {
-  color: #3498db; /* Blue color for unvisited links */
+  color: #3498db;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:visited {
-  color: #8e44ad; /* Purple color for visited links */
+  color: #8e44ad;
 }
 
 a:hover {
