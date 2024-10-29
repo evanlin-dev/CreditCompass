@@ -30,8 +30,8 @@ const darkTheme = createTheme({
 export default function LandingPage() {
   var [isLoggedIn] = useState(false);
 
-    const auth = getAuth();
-    var user = auth.currentUser;
+  const auth = getAuth();
+  var user = auth.currentUser;
 
   if (user === null) {
     isLoggedIn = false;
