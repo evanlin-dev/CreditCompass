@@ -1,6 +1,5 @@
-import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box, Typography, ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import Dashboard from './pages/Dashboard';
 import Cards from './pages/Cards';
