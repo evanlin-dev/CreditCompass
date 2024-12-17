@@ -184,8 +184,7 @@ function Dashboard() {
         if (
             cardData.company.trim() === '' ||
             cardData.holder.trim() === '' ||
-            cardData.points === '' ||
-            cardData.pointLimit === ''
+            cardData.points === ''
         ) {
             alert('Please fill in all required fields.');
             return;
