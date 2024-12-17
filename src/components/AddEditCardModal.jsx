@@ -91,14 +91,6 @@ function AddEditCardModal({
                             onChange={(e) => setCardData({ ...cardData, points: e.target.value })}
                             required
                         />
-                        <TextField
-                            label="Point Limit"
-                            variant="outlined"
-                            type="number"
-                            value={cardData.pointLimit}
-                            onChange={(e) => setCardData({ ...cardData, pointLimit: e.target.value })}
-                            required
-                        />
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
                             <Button onClick={onClose} variant="outlined" color="secondary">
                                 Cancel

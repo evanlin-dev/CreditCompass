@@ -32,6 +32,11 @@ function Sidebar() {
                             <ListItemText primary="Cards" />
                         </ListItemButton>
                     </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => handleNavigate('/calc')}>
+                            <ListItemText primary="Calculator" />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
             </Box>
         </Box>

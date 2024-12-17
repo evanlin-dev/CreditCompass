@@ -8,6 +8,7 @@ import Flowchart from './pages/Flowchart';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import Calc from './pages/Calculator'
 
 <Routes>
   <Route path="/" element={<LandingPage />} />
@@ -16,6 +17,7 @@ import SignUp from './pages/SignUp';
   <Route path="/flowchart" element={<Flowchart />} />
   <Route path="/login" element={<Login />} />
   <Route path="/sign-up" element={<SignUp />} />
+  <Route path='/calc' element={<Calc />} />
 </Routes>
 
 const darkTheme = createTheme({
@@ -50,6 +52,7 @@ function App() {
           <Route path="/flowchart" element={<Flowchart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path='/calc' element={<Calc />} />
           <Route path="*" element={
             <Box sx={{ padding: '2em', color: '#ffffff', textAlign: 'center' }}>
               <Typography variant="h4" gutterBottom>
