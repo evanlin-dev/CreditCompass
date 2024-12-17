@@ -37,6 +37,11 @@ function Sidebar() {
                             <ListItemText primary="Calculator" />
                         </ListItemButton>
                     </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => handleNavigate('/compare')}>
+                            <ListItemText primary="Compare" />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
             </Box>
         </Box>
