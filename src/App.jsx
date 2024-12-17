@@ -18,6 +18,7 @@ import Calc from './pages/Calculator'
   <Route path="/login" element={<Login />} />
   <Route path="/sign-up" element={<SignUp />} />
   <Route path='/calc' element={<Calc />} />
+  <Route path='/compare' element={<Compare />} />
 </Routes>
 
 const darkTheme = createTheme({
@@ -53,6 +54,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path='/calc' element={<Calc />} />
+          <Route path='/compare' element={<Compare />} />
           <Route path="*" element={
             <Box sx={{ padding: '2em', color: '#ffffff', textAlign: 'center' }}>
               <Typography variant="h4" gutterBottom>
