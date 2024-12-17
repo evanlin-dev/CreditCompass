@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
 import {
     Box,
     Typography,
@@ -11,175 +11,224 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Divider,
-} from '@mui/material';
-import Sidebar from '../components/sidebar';
+    TextField,
+    Collapse,
+} from "@mui/material";
+import Sidebar from "../components/sidebar";
 
-// Hardcoded redemption partners and rates
-const redemptionPartners = {
-    "Air Canada (Aeroplan)": {
-        Airline_Partners: "https://www.aircanada.com/ca/en/aco/home/aeroplan/partners.html#/",
-        Reward_Chart: "https://www.aircanada.com/content/dam/aircanada/loyalty-content/documents/flight-rewards-chart-en.pdf",
-        Rates: { Amex_MR: 1, Bilt: 1, Capital_One: 1, Chase_UR: 1, Citi_ThankYou: null, Wells_Fargo: null },
+// Comprehensive redemption partners data mapped to issuers
+const redemptionPartners = [
+    {
+        partner: "Aeromexico (Aeromexico Rewards)",
+        airlinePartners: "https://www.aeromexico.com/en-us/aeromexico-rewards/award-ticket",
+        rewardChart: "https://www.aeromexico.com/en-us/aeromexico-rewards/award-ticket",
+        Amex_MR: "1:1.6\nTransfer Time: 1-7 Days",
+        Bilt: null,
+        Capital_One: "1:1\nTransfer Time: Instant",
+        Chase_UR: null,
+        Citi_ThankYou: "1:1\nTransfer Time: Instant",
+        Wells_Fargo: null,
     },
-    "Singapore Airlines (KrisFlyer)": {
-        Airline_Partners: "No list, but looking at the award charts should tell you who all of the partners are",
-        Reward_Chart: "https://www.singaporeair.com/en_UK/us/ppsclub-krisflyer/use-miles/redeem-miles/",
-        Rates: { Amex_MR: 1, Bilt: null, Capital_One: 1, Chase_UR: 1, Citi_ThankYou: 1, Wells_Fargo: null },
+    {
+        partner: "EVA AIR (Infinity MileageLands)",
+        airlinePartners: null,
+        rewardChart:
+            "https://www.evaair.com/en-us/infinity-mileagelands/mileage-award-program/mileage-redemption/award-ticket/eva-uni-air/",
+        Amex_MR: null,
+        Bilt: null,
+        Capital_One: "2:1.5\nTransfer Time: 1-2 Days",
+        Chase_UR: null,
+        Citi_ThankYou: "1:1\nTransfer Time: 1-2 Days",
+        Wells_Fargo: null,
     },
-    "Avianca (LifeMiles)": {
-        Airline_Partners: "N/A",
-        Reward_Chart: "https://thriftytraveler.com/wp-content/uploads/2022/06/Avianca-Redemption-Table.pdf",
-        Rates: { Amex_MR: 1, Bilt: 1, Capital_One: 1, Chase_UR: null, Citi_ThankYou: 1, Wells_Fargo: 1 },
+    {
+        partner: "Hilton (Hilton Honors)",
+        airlinePartners: null,
+        rewardChart: "https://www.hilton.com/en/hilton-honors/",
+        Amex_MR: "1:2\nTransfer Time: Instant",
+        Bilt: null,
+        Capital_One: null,
+        Chase_UR: null,
+        Citi_ThankYou: null,
+        Wells_Fargo: null,
     },
-    "United (MileagePlus)": {
-        Airline_Partners: "https://www.united.com/ual/en/us/fly/mileageplus/earn-miles/airline-partners.html",
-        Reward_Chart: "No official Award Chart",
-        Rates: { Amex_MR: null, Bilt: 1, Capital_One: null, Chase_UR: 1, Citi_ThankYou: null, Wells_Fargo: null },
+    {
+        partner: "JetBlue (True Blue)",
+        airlinePartners: "https://www.jetblue.com/airline-partners",
+        rewardChart: null,
+        Amex_MR: "1:0.8\nTransfer Time: Instant",
+        Bilt: null,
+        Capital_One: null,
+        Chase_UR: "1:1\nTransfer Time: Instant",
+        Citi_ThankYou: "1:1\nTransfer Time: Instant",
+        Wells_Fargo: null,
     },
-    "British Airways (Executive Club)": {
-        Airline_Partners: "https://www.britishairways.com/content/en/us/information/partners-and-alliances",
-        Reward_Chart: "https://financebuzz.com/avios-award-chart",
-        Rates: { Amex_MR: 1, Bilt: 1, Capital_One: 1, Chase_UR: 1, Citi_ThankYou: null, Wells_Fargo: 1 },
-    },
-    "Virgin Atlantic (Flying Club)": {
-        Airline_Partners: "https://flywith.virginatlantic.com/gb/en/flying-club/airline-partners.html",
-        Reward_Chart: "https://flywith.virginatlantic.com/gb/en/flying-club/spend-points/reward-flights.html",
-        Rates: { Amex_MR: 1, Bilt: 1, Capital_One: 1, Chase_UR: 1, Citi_ThankYou: 1, Wells_Fargo: null },
-    },
+];
+
+const oneToOnePartners = {
+    Amex_MR: [
+        "Air Canada (Aeroplan)",
+        "Singapore Airlines (KrisFlyer)",
+        "Virgin Atlantic (Flying Club)",
+        "Hyatt (World of Hyatt)",
+        "Marriott Bonvoy",
+    ],
+    Bilt: ["Air Canada (Aeroplan)", "United (MileagePlus)", "Hyatt (World of Hyatt)"],
+    Capital_One: [
+        "Air Canada (Aeroplan)",
+        "Singapore Airlines (KrisFlyer)",
+        "British Airways (Executive Club)",
+        "Choice Hotels (Choice Privileges)",
+    ],
+    Chase_UR: ["Air Canada (Aeroplan)", "Virgin Atlantic (Flying Club)", "Hyatt (World of Hyatt)"],
+    Citi_ThankYou: ["Avianca (LifeMiles)", "Singapore Airlines (KrisFlyer)", "Choice Hotels"],
+    Wells_Fargo: ["Choice Hotels (Choice Privileges)", "British Airways (Executive Club)"],
 };
 
 function Calculator() {
-    const [creditCards, setCreditCards] = useState([]);
-    const [selectedCard, setSelectedCard] = useState(null);
+    const [selectedProgram, setSelectedProgram] = useState("Amex_MR");
+    const [pointInput, setPointInput] = useState(""); // Input for point conversion
+    const [showOneToOnePartners, setShowOneToOnePartners] = useState(false);
 
-    useEffect(() => {
-        const storedCards = localStorage.getItem('creditCards');
-        if (storedCards) {
-            setCreditCards(JSON.parse(storedCards));
-        }
-    }, []);
+    const filteredPartners = redemptionPartners.filter(
+        (partner) => partner[selectedProgram] && !partner[selectedProgram]?.includes("1:1")
+    );
 
-    const handleCardSelection = (cardId) => {
-        const card = creditCards.find((c) => c.id === cardId);
-        setSelectedCard(card);
-    };
-
-    const calculatePointsRange = (rate) => {
-        if (rate === null || rate === undefined) return { min: 'N/A', max: 'N/A' };
-
-        return {
-            min: Math.round(1000 * rate), // Minimum 1,000 points transferred
-            max: Math.round(10000 * rate), // Maximum 10,000 points transferred
-        };
+    const calculatePoints = (rate) => {
+        if (!rate || !pointInput) return "N/A";
+        const match = rate.match(/(\d+):(\d+)/);
+        if (!match) return "N/A";
+        const [_, from, to] = match.map(Number);
+        return ((pointInput * to) / from).toLocaleString();
     };
 
     return (
         <Box className="container">
             <Sidebar />
-            <Box className="right-container" sx={{ padding: '2em' }}>
+            <Box className="right-container" sx={{ padding: "2em" }}>
                 <Typography variant="h4" gutterBottom>
                     Points Calculator
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                    Select a card to view its associated reward program and detailed transfer partner information.
+                    Select a reward program and enter points to calculate their value with redemption partners.
                 </Typography>
 
-                <FormControl sx={{ minWidth: 200, marginBottom: '2em' }}>
+                <FormControl sx={{ minWidth: 200, marginTop: "1em", marginBottom: "2em" }}>
                     <Select
-                        value={selectedCard ? selectedCard.id : ''}
-                        onChange={(e) => handleCardSelection(e.target.value)}
-                        displayEmpty
+                        value={selectedProgram}
+                        onChange={(e) => setSelectedProgram(e.target.value)}
                     >
-                        <MenuItem value="" disabled>
-                            Select a Card
-                        </MenuItem>
-                        {creditCards.map((card) => (
-                            <MenuItem key={card.id} value={card.id}>
-                                {card.company} - {card.holder}
-                            </MenuItem>
-                        ))}
+                        <MenuItem value="Amex_MR">Amex MR</MenuItem>
+                        <MenuItem value="Bilt">Bilt</MenuItem>
+                        <MenuItem value="Capital_One">Capital One</MenuItem>
+                        <MenuItem value="Chase_UR">Chase UR</MenuItem>
+                        <MenuItem value="Citi_ThankYou">Citi ThankYou</MenuItem>
+                        <MenuItem value="Wells_Fargo">Wells Fargo</MenuItem>
                     </Select>
                 </FormControl>
 
-                {selectedCard && (
-                    <Box>
-                        <Typography variant="h6" gutterBottom>
-                            Card: {selectedCard.company} - {selectedCard.holder}
-                        </Typography>
-                        <Typography variant="body2" gutterBottom>
-                            Reward Program: {selectedCard.rewardProgram || 'N/A'}
-                        </Typography>
+                <TextField
+                    label="Points"
+                    variant="outlined"
+                    type="number"
+                    value={pointInput}
+                    onChange={(e) => setPointInput(e.target.value)}
+                    sx={{ marginBottom: "2em", minWidth: 200 }}
+                />
 
-                        <Divider sx={{ margin: '2em 0' }} />
+                <Paper sx={{ padding: "1em" }}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Partner</TableCell>
+                                <TableCell>Conversion Rate</TableCell>
+                                <TableCell>Converted Points</TableCell>
+                                <TableCell>Airline Partners</TableCell>
+                                <TableCell>Reward Chart</TableCell>
+                                <TableCell>Details</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {filteredPartners.map((partner) => (
+                                <TableRow key={partner.partner}>
+                                    <TableCell>{partner.partner}</TableCell>
+                                    <TableCell>{partner[selectedProgram] || "N/A"}</TableCell>
+                                    <TableCell>
+                                        {calculatePoints(partner[selectedProgram])}
+                                    </TableCell>
+                                    <TableCell>
+                                        {partner.airlinePartners ? (
+                                            <a
+                                                href={partner.airlinePartners}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                Airline Partners
+                                            </a>
+                                        ) : (
+                                            "N/A"
+                                        )}
+                                    </TableCell>
+                                    <TableCell>
+                                        {partner.rewardChart ? (
+                                            <a
+                                                href={partner.rewardChart}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                Reward Chart
+                                            </a>
+                                        ) : (
+                                            "N/A"
+                                        )}
+                                    </TableCell>
+                                    <TableCell>
+                                        <a
+                                            href={`https://www.google.com/search?q=${partner.partner}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Details
+                                        </a>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                            <TableRow>
+                                <TableCell>All Other Partners</TableCell>
+                                <TableCell>1:1</TableCell>
+                                <TableCell>{pointInput || "N/A"}</TableCell>
+                                <TableCell colSpan={3}>
+                                    <Typography
+                                        variant="body2"
+                                        onClick={() =>
+                                            setShowOneToOnePartners((prev) => !prev)
+                                        }
+                                        sx={{
+                                            textDecoration: "underline",
+                                            cursor: "pointer",
+                                            color: "blue",
+                                        }}
+                                    >
+                                        {showOneToOnePartners
+                                            ? "Hide Partners"
+                                            : "Show Partners"}
+                                    </Typography>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </Paper>
 
-                        <Typography variant="h5" gutterBottom>
-                            Redemption Partners
-                        </Typography>
-                        <Paper sx={{ padding: '1em', marginBottom: '2em' }}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Partner</TableCell>
-                                        <TableCell>Airline Partners</TableCell>
-                                        <TableCell>Reward Chart</TableCell>
-                                        <TableCell>Transfer Rates</TableCell>
-                                        <TableCell>Potential Points</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {Object.entries(redemptionPartners).map(([partner, details]) => {
-                                        const programRate = details.Rates[selectedCard.rewardProgram];
-                                        const pointsRange = calculatePointsRange(programRate);
-
-                                        return (
-                                            <TableRow key={partner}>
-                                                <TableCell>{partner}</TableCell>
-                                                <TableCell>
-                                                    {details.Airline_Partners !== 'N/A' ? (
-                                                        <a
-                                                            href={details.Airline_Partners}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            View
-                                                        </a>
-                                                    ) : (
-                                                        'N/A'
-                                                    )}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {details.Reward_Chart ? (
-                                                        <a
-                                                            href={details.Reward_Chart}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            View
-                                                        </a>
-                                                    ) : (
-                                                        'N/A'
-                                                    )}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {Object.entries(details.Rates)
-                                                        .map(([program, rate]) => (
-                                                            <Typography key={program} variant="body2">
-                                                                {program}: {rate !== null ? rate : 'N/A'}
-                                                            </Typography>
-                                                        ))}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {pointsRange.min} - {pointsRange.max}
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                                </TableBody>
-                            </Table>
-                        </Paper>
-                    </Box>
-                )}
+                <Collapse in={showOneToOnePartners}>
+                    <Paper sx={{ padding: "1em", marginTop: "1em" }}>
+                        <Typography variant="h6">1:1 Partners</Typography>
+                        <ul>
+                            {oneToOnePartners[selectedProgram]?.map((partner) => (
+                                <li key={partner}>{partner}</li>
+                            ))}
+                        </ul>
+                    </Paper>
+                </Collapse>
             </Box>
         </Box>
     );
